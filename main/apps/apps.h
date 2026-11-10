@@ -10,6 +10,7 @@
  */
 #pragma once
 #include "launcher/launcher.h"
+#include "app_service/app_service.h"
 #include "app_record/app_record.h"
 #include "app_wifi_scan/app_wifi_scan.h"
 #include "app_chat/app_chat.h"

@@ -112,6 +112,10 @@ extern "C" void app_main(void)
     auto launcher = new APPS::Launcher_Packer;
     mooncake.installApp(launcher);
 
+    // Install background service
+    auto service = new APPS::AppService_Packer;
+    mooncake.installApp(service);
+
     // Install apps
     mooncake.installApp(new APPS::AppWifiScan_Packer);
     mooncake.installApp(new APPS::AppRadio_Packer);
@@ -127,6 +131,9 @@ extern "C" void app_main(void)
 
     // Create launcher
     mooncake.createApp(launcher);
+
+    // Create background service (常驻后台)
+    mooncake.createApp(service);
 
     // Update framework
     while (1)

@@ -52,9 +52,18 @@ void Launcher::onRunning()
 void Launcher::onRunningBG()
 {
     // spdlog::info("{}", mcAppGetFramework()->getAppManager().getCreatedAppNum());
-    
-    // If only launcher standing still 
-    if (mcAppGetFramework()->getAppManager().getCreatedAppNum() == 1)
+
+    // Count created apps that are NOT allowed to run in background
+    // （launcher 与常驻服务都允许后台运行，不计入，否则常驻服务会顶掉这个判断）
+    int running_app_num = 0;
+    for (const auto& lifecycle : *mcAppGetFramework()->getAppManager().getAppLifecycleList())
+    {
+        if (!lifecycle.app->isAllowBgRunning())
+            running_app_num++;
+    }
+
+    // If no regular app standing in front
+    if (running_app_num == 0)
     {
         spdlog::info("back to launcher");
 
